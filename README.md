@@ -60,4 +60,4 @@ Edit the intro text, cards (problems, solutions, business value), and charts dat
 
 📄 License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT License - see the LICENSE (https://github.com/jayjaboneta/ai-integration-philippines/blob/91f93759154b668aeeb25914da97bd14537c2e7b/license) file for details.
