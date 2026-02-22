@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Integration Opportunities: Philippines Education & SMEs</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f5f5f4; color: #1c1917; }
+        .chart-container { 
+            position: relative; 
+            width: 100%; 
+            max-width: 600px; 
+            height: 300px; 
+            margin: 0 auto; 
+        } 
+        @media (min-width: 768px) { 
+            .chart-container { height: 350px; } 
+        }
+        .card-hover:hover { transform: translateY(-4px); transition: all 0.3s ease; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
+        .active-tab { border-bottom: 3px solid #2563eb; color: #2563eb; font-weight: 700; }
+        .inactive-tab { color: #78716c; }
+        .gradient-text { background: linear-gradient(90deg, #1e40af, #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    </style>
+</head>
+<body class="antialiased selection:bg-blue-100 selection:text-blue-900">
+
+    <!-- Chosen Palette: Stone (Neutral Background), Blue (Primary/Trust/Tech), Amber (Accent/Opportunity) -->
+    
+    <!-- Application Structure Plan: 
+         1. Hero Section: Sets the context of the "AI Opportunity in the Philippines".
+         2. Sector Toggle (The Core Interaction): Users switch between "Education" and "SMEs". This filters all downstream content.
+         3. Problem/Solution Matrix: Dynamic cards showing specific PH pain points (e.g., Large Class Sizes, Manual BIR Compliance) mapped to AI solutions.
+         4. Impact Visualizer: Interactive charts quantifying the ROI (Time Saved / Revenue Increased).
+         5. Implementation Roadmap: A phased approach to selling/integrating these services.
+         This structure helps a potential business owner visualize their service offering and pitch it effectively.
+    -->
+
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <!-- Navbar -->
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <span class="text-2xl font-bold tracking-tight text-slate-800">Talas<span class="text-blue-600">AI</span> PH</span>
+                </div>
+                <div class="hidden sm:flex items-center space-x-8">
+                    <a href="#market-context" class="text-sm font-medium text-slate-600 hover:text-blue-600">Market Context</a>
+                    <a href="#solutions-engine" class="text-sm font-medium text-slate-600 hover:text-blue-600">Solutions Engine</a>
+                    <a href="#impact-metrics" class="text-sm font-medium text-slate-600 hover:text-blue-600">Impact Data</a>
+                    <button class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700">Start Integration</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-16">
+
+        <!-- Hero Section -->
+        <section class="text-center space-y-6">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900">
+                Bridging the Digital Gap in the <br><span class="gradient-text">Philippines</span>
+            </h1>
+            <p class="max-w-2xl mx-auto text-lg text-slate-600">
+                A strategic roadmap for integrating Artificial Intelligence into Philippine Schools and SMEs. 
+                Explore concrete use cases, projected ROI, and deployment strategies designed for local infrastructure.
+            </p>
+        </section>
+
+        <!-- Market Context / Stats (Static High Level) -->
+        <section id="market-context" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="bg-white p-6 rounded-xl border border-stone-200 shadow-sm">
+                <div class="text-4xl font-bold text-blue-600 mb-2">99.5%</div>
+                <div class="text-sm text-slate-500 uppercase tracking-wide font-semibold">Of PH Businesses are MSMEs</div>
+                <p class="mt-3 text-slate-600 text-sm">Massive untapped market for low-cost, high-impact automation tools.</p>
+            </div>
+            <div class="bg-white p-6 rounded-xl border border-stone-200 shadow-sm">
+                <div class="text-4xl font-bold text-amber-500 mb-2">1:35+</div>
+                <div class="text-sm text-slate-500 uppercase tracking-wide font-semibold">Avg. Public School Teacher Ratio</div>
+                <p class="mt-3 text-slate-600 text-sm">Teachers are overwhelmed with admin tasks, creating a prime need for AI assistance.</p>
+            </div>
+            <div class="bg-white p-6 rounded-xl border border-stone-200 shadow-sm">
+                <div class="text-4xl font-bold text-emerald-600 mb-2">Php 3Tn</div>
+                <div class="text-sm text-slate-500 uppercase tracking-wide font-semibold">Digital Economy Potential by 2030</div>
+                <p class="mt-3 text-slate-600 text-sm">Rapid adoption of mobile wallets (GCash/Maya) signals readiness for AI commerce.</p>
+            </div>
+        </section>
+
+        <!-- INTERACTIVE CONTROLLER -->
+        <!-- Visualization & Content Choices: 
+             Goal: Allow the user to "pivot" the business model view.
+             Method: A prominent tab switcher.
+             Interaction: Clicking changes the 'state.currentSector', triggering updates to the Solutions Grid and the ROI Charts.
+        -->
+        <section id="solutions-engine" class="scroll-mt-24">
+            <div class="text-center mb-8">
+                <h2 class="text-2xl font-bold text-slate-900">Select Target Sector</h2>
+                <p class="text-slate-600 mt-2">Toggle to explore specific use-cases and business opportunities.</p>
+            </div>
+            
+            <div class="flex justify-center border-b border-stone-300 mb-10">
+                <button id="btn-education" class="active-tab px-8 py-4 text-lg focus:outline-none transition-colors" onclick="switchSector('education')">
+                    Education (Schools/Colleges)
+                </button>
+                <button id="btn-sme" class="inactive-tab px-8 py-4 text-lg focus:outline-none transition-colors" onclick="switchSector('sme')">
+                    SMEs (Retail/Services)
+                </button>
+            </div>
+
+            <!-- Dynamic Introduction Paragraph -->
+            <div id="sector-intro" class="bg-blue-50 border-l-4 border-blue-600 p-6 rounded-r-lg mb-10">
+                <!-- JS will populate this -->
+            </div>
+
+            <!-- Solutions Grid -->
+            <div id="solutions-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- JS will populate cards here -->
+            </div>
+        </section>
+
+        <!-- Data Visualization Section -->
+        <section id="impact-metrics" class="bg-white rounded-2xl p-8 shadow-sm border border-stone-200 scroll-mt-24">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
+                <div>
+                    <h2 class="text-2xl font-bold text-slate-900">Projected Impact Analysis</h2>
+                    <p class="text-slate-600 text-sm mt-1" id="chart-subtitle">Quantifying the value of AI adoption.</p>
+                </div>
+                <!-- Interactive Slider -->
+                <div class="mt-4 md:mt-0 bg-stone-50 p-4 rounded-lg border border-stone-200">
+                    <label for="impact-slider" class="block text-sm font-medium text-slate-700 mb-1" id="slider-label">Adoption Level: 50%</label>
+                    <input type="range" id="impact-slider" min="10" max="100" value="50" step="10" class="w-full h-2 bg-stone-300 rounded-lg appearance-none cursor-pointer accent-blue-600">
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+                <!-- Chart 1: Efficiency/Time -->
+                <div class="flex flex-col">
+                    <h3 class="text-lg font-semibold text-slate-800 mb-4 text-center" id="chart1-title">Time Allocation Audit</h3>
+                    <div class="chart-container bg-stone-50 rounded-lg p-2">
+                        <canvas id="mainChart"></canvas>
+                    </div>
+                    <p class="text-xs text-center text-slate-500 mt-3 italic">Data derived from standardized workflow analysis.</p>
+                </div>
+
+                <!-- Chart 2: Revenue/Performance -->
+                <div class="flex flex-col">
+                    <h3 class="text-lg font-semibold text-slate-800 mb-4 text-center" id="chart2-title">Projected Outcome Improvement</h3>
+                    <div class="chart-container bg-stone-50 rounded-lg p-2">
+                        <canvas id="secondaryChart"></canvas>
+                    </div>
+                    <p class="text-xs text-center text-slate-500 mt-3 italic">Projections based on variable adoption rates.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Business Offering / Roadmap -->
+        <section class="bg-stone-900 text-stone-100 rounded-2xl p-8 md:p-12 relative overflow-hidden">
+            <!-- Decorative circle -->
+            <div class="absolute top-0 right-0 -mt-10 -mr-10 w-64 h-64 bg-blue-600 rounded-full opacity-20 blur-3xl"></div>
+
+            <h2 class="text-2xl font-bold mb-8 relative z-10">Your Integration Service Packages</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 relative z-10">
+                
+                <!-- Package 1 -->
+                <div class="bg-stone-800 p-6 rounded-lg border border-stone-700">
+                    <div class="text-blue-400 font-bold text-sm uppercase tracking-wider mb-2">Phase 1: Audit & Pilot</div>
+                    <h3 class="text-xl font-bold mb-4">Discovery</h3>
+                    <ul class="space-y-3 text-stone-300 text-sm">
+                        <li class="flex items-start"><span class="mr-2 text-blue-400">&#10003;</span> Workflow pain-point analysis</li>
+                        <li class="flex items-start"><span class="mr-2 text-blue-400">&#10003;</span> Data privacy readiness check (NPC compliance)</li>
+                        <li class="flex items-start"><span class="mr-2 text-blue-400">&#10003;</span> Single-tool pilot (e.g., Chatbot or AI Grader)</li>
+                    </ul>
+                </div>
+
+                <!-- Package 2 -->
+                <div class="bg-stone-800 p-6 rounded-lg border-2 border-blue-600 transform scale-105 shadow-xl">
+                    <div class="flex justify-between items-center mb-2">
+                        <div class="text-white font-bold text-sm uppercase tracking-wider">Phase 2: Integration</div>
+                        <span class="bg-blue-600 text-xs px-2 py-1 rounded text-white">Recommended</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Deployment</h3>
+                    <ul class="space-y-3 text-stone-300 text-sm">
+                        <li class="flex items-start"><span class="mr-2 text-blue-400">&#10003;</span> Custom API Wrappers for existing systems</li>
+                        <li class="flex items-start"><span class="mr-2 text-blue-400">&#10003;</span> Staff training workshops (upskilling)</li>
+                        <li class="flex items-start"><span class="mr-2 text-blue-400">&#10003;</span> Localized model tuning (Filipino/Taglish)</li>
+                    </ul>
+                </div>
+
+                <!-- Package 3 -->
+                <div class="bg-stone-800 p-6 rounded-lg border border-stone-700">
+                    <div class="text-blue-400 font-bold text-sm uppercase tracking-wider mb-2">Phase 3: Scale</div>
+                    <h3 class="text-xl font-bold mb-4">Ecosystem</h3>
+                    <ul class="space-y-3 text-stone-300 text-sm">
+                        <li class="flex items-start"><span class="mr-2 text-blue-400">&#10003;</span> Full predictive analytics dashboard</li>
+                        <li class="flex items-start"><span class="mr-2 text-blue-400">&#10003;</span> Autonomous agent deployment</li>
+                        <li class="flex items-start"><span class="mr-2 text-blue-400">&#10003;</span> Quarterly strategic AI review</li>
+                    </ul>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-white border-t border-stone-200 mt-20 py-10">
+        <div class="max-w-7xl mx-auto px-4 text-center text-slate-500 text-sm">
+            <p>&copy; 2024 TalasAI Philippines. Designed for strategic planning.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // --- State Management ---
+        const state = {
+            sector: 'education', // 'education' or 'sme'
+            adoptionLevel: 50 // controlled by slider
+        };
+
+        // --- Data Store: Concrete Examples & Content ---
+        const dataStore = {
+            education: {
+                intro: `
+                    <h3 class="text-xl font-bold text-blue-900 mb-2">AI for Philippine Schools: From Admin to Adaptive Learning</h3>
+                    <p class="text-blue-800">
+                        The Philippine education sector faces unique challenges: high student-teacher ratios (often 1:45+ in public schools), diverse dialects, and administrative bottlenecks. 
+                        The opportunities below focus on <strong>relieving teacher workload</strong> and <strong>personalizing student remediation</strong> without requiring expensive hardware upgrades.
+                    </p>
+                `,
+                cards: [
+                    {
+                        title: "Automated Lesson Planning & Alignment",
+                        icon: "📝",
+                        problem: "Teachers spend 2-3 hours daily drafting lesson plans aligned with DepEd K-12 curriculum guides.",
+                        solution: "AI Generators pre-loaded with DepEd Most Essential Learning Competencies (MELCs). Teachers input the topic, AI outputs a compliant plan in minutes.",
+                        businessValue: "Sell subscription licenses to private schools; B2G (Business to Government) pilots."
+                    },
+                    {
+                        title: "Vernacular Remediation Tutors",
+                        icon: "🗣️",
+                        problem: "Language barriers hinder STEM learning. Students struggle with English-only materials.",
+                        solution: "Fine-tuned LLM chatbots that explain complex Math/Science concepts in Tagalog, Cebuano, or Ilocano based on the student's region.",
+                        businessValue: "Premium parent-paid app add-on; University partnership for remedial classes."
+                    },
+                    {
+                        title: "Smart Grading & Feedback",
+                        icon: "✅",
+                        problem: "Checking 200+ essays or quizzes manually leads to delayed feedback and burnout.",
+                        solution: "OCR + NLP tools where teachers snap a photo of a quiz paper, and AI grades it, checks grammar, and suggests improvements.",
+                        businessValue: "SaaS platform per-teacher pricing; Integration with existing LMS (Canvas/Google Classroom)."
+                    },
+                    {
+                        title: "Enrollment & Inquiry Chatbots",
+                        icon: "💬",
+                        problem: "School registrars are overwhelmed during enrollment season (May-July), leading to long queues.",
+                        solution: "24/7 AI agents handling FAQs, requirement checking, and scheduling appointments.",
+                        businessValue: "One-time setup fee + maintenance retainer for Colleges and Universities."
+                    },
+                    {
+                        title: "Early Warning Drop-out Systems",
+                        icon: "📉",
+                        problem: "High dropout rates due to financial or academic struggles often go unnoticed until it's too late.",
+                        solution: "Predictive analysis on attendance and quiz data to flag 'at-risk' students for counselor intervention.",
+                        businessValue: "High-ticket consulting implementation for large University networks."
+                    }
+                ],
+                charts: {
+                    title1: "Teacher Weekly Hours Distribution",
+                    labels1: ["Lesson Prep", "Grading", "Admin Work", "Actual Teaching", "Student Consultation"],
+                    data1_before: [10, 8, 12, 15, 5],
+                    data1_after: [3, 2, 4, 15, 26], // Massive shift to teaching/consultation
+                    title2: "Student Proficiency Improvement (Remedial)",
+                    labels2: ["Month 1", "Month 3", "Month 6", "Month 9", "Month 12"],
+                    data2_baseline: [75, 76, 77, 78, 79],
+                    data2_ai: [75, 80, 85, 88, 92]
+                }
+            },
+            sme: {
+                intro: `
+                    <h3 class="text-xl font-bold text-amber-900 mb-2">AI for Pinoy SMEs: Leapfrogging Efficiency</h3>
+                    <p class="text-amber-800">
+                        Filipino MSMEs are the backbone of the economy but suffer from low digital maturity. 
+                        The goal is not to replace staff, but to <strong>automate the 'boring' back-office tasks</strong> and <strong>supercharge marketing</strong> 
+                        to compete with large conglomerates. Solutions must be mobile-first and data-light.
+                    </p>
+                `,
+                cards: [
+                    {
+                        title: "Taglish Social Media Marketer",
+                        icon: "📱",
+                        problem: "Small business owners lack budget for agencies and time to create daily content for FB/Tiktok.",
+                        solution: "AI Content Generator specifically trained on 'Pinoy Internet Slang' and local trends to create authentic, engaging posts and captions.",
+                        businessValue: "Monthly subscription tool; 'Agency-in-a-box' service."
+                    },
+                    {
+                        title: "Smart Inventory for Retail/Food",
+                        icon: "📦",
+                        problem: "Sari-sari stores and Carinderias lose money due to spoilage or running out of stock (stock-outs).",
+                        solution: "Simple demand forecasting based on historical sales data + local events (e.g., fiesta = high beer demand).",
+                        businessValue: "Bundled app with POS systems; Partnership with FMCG distributors."
+                    },
+                    {
+                        title: "Automated Customer Service (E-comm)",
+                        icon: "🛒",
+                        problem: "Online sellers (Shopee/Lazada/FB Marketplace) lose sales if they don't reply instantly to inquiries.",
+                        solution: "Chatbots that integrate with Messenger/Viber, answering 'Hm?', 'Available?', and shipping queries automatically.",
+                        businessValue: "Per-conversation pricing or flat monthly fee for high-volume sellers."
+                    },
+                    {
+                        title: "BIR & Tax Compliance Assistant",
+                        icon: "🧾",
+                        problem: "Tax filing in PH is complex and intimidating for micro-entrepreneurs.",
+                        solution: "AI that scans receipts, categorizes expenses, and drafts BIR forms for review by a bookkeeper.",
+                        businessValue: "Fintech integration; Partnership with accounting firms."
+                    },
+                    {
+                        title: "Micro-Loan Credit Scoring",
+                        icon: "💳",
+                        problem: "SMEs struggle to get bank loans due to lack of formal credit history.",
+                        solution: "Alternative credit scoring using transaction data, cash flow analysis, and even social media sentiment.",
+                        businessValue: "B2B service sold to Rural Banks and Lending Cooperatives."
+                    }
+                ],
+                charts: {
+                    title1: "SME OpEx Breakdown (Monthly)",
+                    labels1: ["Marketing", "Inventory Loss", "Staff Overtime", "Logistics", "Core Ops"],
+                    data1_before: [25, 15, 20, 15, 25],
+                    data1_after: [10, 5, 5, 15, 65], // Reinvestment in core ops
+                    title2: "Projected Revenue Growth (YoY)",
+                    labels2: ["Year 1", "Year 2", "Year 3", "Year 4", "Year 5"],
+                    data2_baseline: [1.5, 1.6, 1.7, 1.8, 1.9], // Slow growth (Million PHP)
+                    data2_ai: [1.5, 2.2, 3.1, 4.5, 6.0] // Exponential growth
+                }
+            }
+        };
+
+        // --- Chart Objects ---
+        let mainChartInstance = null;
+        let secondaryChartInstance = null;
+
+        // --- Initialization ---
+        document.addEventListener('DOMContentLoaded', () => {
+            renderContent();
+            initCharts();
+            setupEventListeners();
+        });
+
+        function setupEventListeners() {
+            // Slider Listener
+            const slider = document.getElementById('impact-slider');
+            const label = document.getElementById('slider-label');
+            slider.addEventListener('input', (e) => {
+                state.adoptionLevel = e.target.value;
+                label.innerText = `Adoption Level: ${state.adoptionLevel}%`;
+                updateCharts();
+            });
+        }
+
+        // --- Core Switching Logic ---
+        function switchSector(sector) {
+            state.sector = sector;
+            
+            // Update UI Tabs
+            const btnEd = document.getElementById('btn-education');
+            const btnSme = document.getElementById('btn-sme');
+            
+            if (sector === 'education') {
+                btnEd.className = 'active-tab px-8 py-4 text-lg focus:outline-none transition-colors';
+                btnSme.className = 'inactive-tab px-8 py-4 text-lg focus:outline-none transition-colors';
+            } else {
+                btnEd.className = 'inactive-tab px-8 py-4 text-lg focus:outline-none transition-colors';
+                btnSme.className = 'active-tab px-8 py-4 text-lg focus:outline-none transition-colors';
+            }
+
+            // Re-render
+            renderContent();
+            updateCharts();
+        }
+
+        // --- Render Functions ---
+        function renderContent() {
+            const data = dataStore[state.sector];
+            
+            // 1. Render Intro
+            document.getElementById('sector-intro').innerHTML = data.intro;
+            
+            // 2. Render Cards
+            const grid = document.getElementById('solutions-grid');
+            grid.innerHTML = ''; // Clear existing
+            
+            data.cards.forEach(card => {
+                const cardHTML = `
+                    <div class="bg-white rounded-xl p-6 border border-stone-200 shadow-sm card-hover flex flex-col h-full">
+                        <div class="flex items-center mb-4">
+                            <span class="text-3xl bg-blue-50 p-3 rounded-lg mr-4">${card.icon}</span>
+                            <h4 class="font-bold text-lg text-slate-800 leading-tight">${card.title}</h4>
+                        </div>
+                        <div class="flex-grow space-y-3">
+                            <div>
+                                <span class="text-xs font-bold text-red-500 uppercase tracking-wide">Pain Point</span>
+                                <p class="text-sm text-slate-600 mt-1">${card.problem}</p>
+                            </div>
+                            <div>
+                                <span class="text-xs font-bold text-green-600 uppercase tracking-wide">AI Solution</span>
+                                <p class="text-sm text-slate-600 mt-1">${card.solution}</p>
+                            </div>
+                        </div>
+                        <div class="mt-4 pt-4 border-t border-dashed border-stone-200">
+                            <span class="text-xs font-bold text-slate-400 uppercase">Biz Opportunity</span>
+                            <p class="text-xs font-semibold text-blue-600 mt-1">${card.businessValue}</p>
+                        </div>
+                    </div>
+                `;
+                grid.innerHTML += cardHTML;
+            });
+
+            // 3. Update Chart Titles
+            document.getElementById('chart1-title').innerText = data.charts.title1;
+            document.getElementById('chart2-title').innerText = data.charts.title2;
+        }
+
+        // --- Chart Logic ---
+        function initCharts() {
+            const ctx1 = document.getElementById('mainChart').getContext('2d');
+            const ctx2 = document.getElementById('secondaryChart').getContext('2d');
+
+            // Chart 1: Bar Chart (Comparison)
+            mainChartInstance = new Chart(ctx1, {
+                type: 'bar',
+                data: {
+                    labels: [],
+                    datasets: []
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom' }
+                    }
+                }
+            });
+
+            // Chart 2: Line Chart (Trends)
+            secondaryChartInstance = new Chart(ctx2, {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: []
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom' }
+                    }
+                }
+            });
+
+            updateCharts();
+        }
+
+        function updateCharts() {
+            const data = dataStore[state.sector].charts;
+            const factor = state.adoptionLevel / 100;
+
+            // Update Chart 1 (Bar - Before vs After)
+            // We simulate "After" data changing based on adoption slider
+            // If adoption is 100%, we get the full benefit. If 0%, we get baseline.
+            
+            // Calculate dynamic "After" data based on slider
+            const dynamicAfter = data.data1_before.map((val, index) => {
+                const target = data.data1_after[index];
+                const diff = target - val;
+                return val + (diff * factor);
+            });
+
+            mainChartInstance.data = {
+                labels: data.labels1,
+                datasets: [
+                    {
+                        label: 'Current Status (Manual)',
+                        data: data.data1_before,
+                        backgroundColor: '#cbd5e1', // slate-300
+                        borderRadius: 4
+                    },
+                    {
+                        label: 'With AI Integration',
+                        data: dynamicAfter,
+                        backgroundColor: '#2563eb', // blue-600
+                        borderRadius: 4
+                    }
+                ]
+            };
+            mainChartInstance.update();
+
+            // Update Chart 2 (Line - Growth)
+            const dynamicGrowth = data.data2_baseline.map((val, index) => {
+                const target = data.data2_ai[index];
+                const diff = target - val;
+                return val + (diff * factor);
+            });
+
+            secondaryChartInstance.data = {
+                labels: data.labels2,
+                datasets: [
+                    {
+                        label: 'Baseline Projection',
+                        data: data.data2_baseline,
+                        borderColor: '#94a3b8',
+                        borderDash: [5, 5],
+                        tension: 0.4,
+                        pointRadius: 0
+                    },
+                    {
+                        label: 'Projected AI Impact',
+                        data: dynamicGrowth,
+                        borderColor: state.sector === 'education' ? '#2563eb' : '#f59e0b', // Blue or Amber
+                        backgroundColor: state.sector === 'education' ? 'rgba(37, 99, 235, 0.1)' : 'rgba(245, 158, 11, 0.1)',
+                        fill: true,
+                        tension: 0.4
+                    }
+                ]
+            };
+            secondaryChartInstance.update();
+        }
+
+    </script>
+</body>
+</html>
