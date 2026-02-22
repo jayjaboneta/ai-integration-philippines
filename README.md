@@ -1,4 +1,4 @@
-TalasAI PH: AI Integration Interactive Proposal
+KenzoAI PH: AI Integration Interactive Proposal
 
 A single-page, interactive web application designed to serve as a strategic roadmap and dynamic business proposal for offering AI integration services in the Philippines.
 
